@@ -3,33 +3,19 @@ export const pageSize = 25;
 export let pageIndex = 1;
 
 
-// export function fetchVideos(searchTerms = ''){
-//     return  {
-//         type: FETCH_VIDEOS,
-//         payload: {
-//             objects: [{
-//                 "id": "sfsf",
-//                 "title": "sdfasfa"
-//             }],
-//             totalCount: 1
-//         }
-//     }
-// }
-
-
-
-
 let config = new window.KalturaConfiguration(233);
 config.serviceUrl = "http://api.video.swisstxt.ch/";
 let client = null;
 let dispatcher;
+let page = 1;
 
-export function fetchVideos(searchTerms = '', page = 1) {
+export function fetchVideos(searchTerms = '', currentPage = 1) {
+    page = currentPage;
     return dispatch => {
         if (client == null) {
             session_start(dispatch);
         } else {
-            getVideoList(searchTerms, page, dispatch);
+            getVideoList(searchTerms, dispatch);
         }    
     };
 }
@@ -60,7 +46,7 @@ function session_start(dispatch){
         .execute(client);
 }
 
-function getVideoList(searchTerm, page = 0, dispatch){
+function getVideoList(searchTerm, dispatch){
     let filter = new window.KalturaMediaEntryFilter();
     filter.searchTextMatchOr = searchTerm;
     let pager = new window.KalturaFilterPager();

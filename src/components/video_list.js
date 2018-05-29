@@ -6,6 +6,7 @@ import { fetchVideos } from '../actions';
 import {withRouter} from 'react-router';
 
 // import _ from 'lodash';
+let i = 0;
 
 class VideoList extends Component {
 
@@ -16,7 +17,7 @@ class VideoList extends Component {
     }
 
     componentWillMount() {
-        this.props.fetchVideos();
+        this.props.fetchVideos("" , this.props.match.params.page);
     }
     // shouldComponentUpdate(nextProps) {
     //     debugger;
@@ -30,8 +31,8 @@ class VideoList extends Component {
         // if (nextProps.location !== this.props.location) {
         // if(!_.isEqual(nextProps.videos.videos, this.props.videos.videos)) {
         // if (nextProps.match.params.page != window.location.href.split("page/")[1].split("/")[0]) {
-            console.log(nextProps)
-        if (nextProps.match.params.page !== this.props.match.params.page) {
+        
+        if (nextProps.match.params.page !== this.props.match.params.page || i++ < 2) {
             if (window.location.href.includes("page/")) {
                 this.props.fetchVideos(document.getElementById("search_bar").value, nextProps.match.params.page);
             } else {
@@ -55,7 +56,6 @@ class VideoList extends Component {
 
         return (
             <div className="video-list">
-                <div>{ this.props.match.params.page }</div>
                 { videoItems }
             </div>
         );

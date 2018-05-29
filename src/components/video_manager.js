@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+// import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import VideoList from './video_list';
 import VideoDetail from './video_detail';
@@ -7,7 +7,6 @@ import VideoDetail from './video_detail';
 class VideoManager extends Component {
 
     render() {
-        debugger;
         return (
             <div>
             <VideoList /> 
